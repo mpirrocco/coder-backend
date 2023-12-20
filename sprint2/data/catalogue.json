@@ -1,0 +1,34 @@
+[
+	{
+		"title": "Screwdriver",
+		"description": "Phillips style",
+		"price": 30,
+		"image": "no image",
+		"stock": 3,
+		"id": 1
+	},
+	{
+		"title": "Screwdriver",
+		"description": "Flat style",
+		"price": 60,
+		"image": "no image",
+		"stock": 3,
+		"id": 2
+	},
+	{
+		"title": "Wrench",
+		"description": "6\" adjustable",
+		"price": 160,
+		"image": "no image",
+		"stock": 3,
+		"id": 3
+	},
+	{
+		"title": "Bycicle seat",
+		"description": "Mountain Bike style",
+		"price": 265,
+		"image": "no image",
+		"stock": 15,
+		"id": 4
+	}
+]
