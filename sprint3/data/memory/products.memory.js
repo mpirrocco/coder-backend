@@ -47,6 +47,7 @@ class ProductManager {
 }
 
 const productsInMemory = new ProductManager()
+export default productsInMemory
 
 productsInMemory.create('Screwdriver', 'Phillips style', 'no image', '23223', 3)
 productsInMemory.create('Screwdriver', 'Flat style', 'no image', '23223', 3)
