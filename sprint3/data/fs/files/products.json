@@ -1,0 +1,26 @@
+[
+	{
+		"title": "Screwdriver",
+		"description": "Phillips style",
+		"price": 30,
+		"image": "no image",
+		"stock": 3,
+		"id": "85d0d60b00722fd4820ac655"
+	},
+	{
+		"title": "Screwdriver",
+		"description": "Flat style",
+		"price": 60,
+		"image": "no image",
+		"stock": 3,
+		"id": "3551ba799188dbd3919337f5"
+	},
+	{
+		"title": "Wrench",
+		"description": "6\" adjustable",
+		"price": 160,
+		"image": "no image",
+		"stock": 3,
+		"id": "c5aa4f2ea5b3b14266af523f"
+	}
+]
