@@ -45,6 +45,7 @@ class UserManager {
 }
 
 const usersInMemory = new UserManager()
+export default usersInMemory
 
 usersInMemory.create('Rachel Adams', 'no image', 'rachel@mail.com')
 usersInMemory.create('Lieutenant Dan', 'no image', 'dan@mail.com')
