@@ -1,24 +1,18 @@
 <main>
   <section class="container">
-    <h1>Main page</h1>
-    <p>This is our main page</p>
-    <p>
-      {{date}}
-    </p>
-
+    <p> {{date}} </p>
+    <h1>Best prices in town </h1>
     {{#if details}}
-      <h2>
+      <p>
         {{details}}
-      </h2>
+      </p>
     {{else}}
       <p>
         <i>Missing content goes here</i>
       </p>
     {{/if}}
-
-    {{#each tools}}
-      <h2>{{this}}</h2>
-    {{/each}}
+    <div id="products-list"></div>
   </section>
-
 </main>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/productsListSocket.js"></script>

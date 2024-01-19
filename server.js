@@ -16,8 +16,6 @@ const ready = console.log(`Server is running on port: ${PORT}`)
 const httpServer = createServer(server)
 const socketServer = new Server(httpServer)
 
-
-
 server.use(express.json())
 server.use(express.urlencoded({ extended: true }))
 server.use(express.static(__dirname + '/public'))
@@ -37,7 +35,6 @@ server.use(pathHandler)
 httpServer.listen(PORT, ready)
 
 socketServer.on('connection', async (socket) => {
-
   socket.emit('welcome', 'Welcome to our hardware store')
 
   const allProducts = await products.read()  
@@ -45,22 +42,12 @@ socketServer.on('connection', async (socket) => {
 
   socket.on('new product', async(data) => {
     try {
-      
-      // metodo de agregar al arreglo de prods
-
       const newProduct = await products.create(data.title, data.description, data.price, data.image, data.stock)
-      // console.log(newProduct)
-      console.log(newProduct)
-
       allProducts.push(newProduct)
-
       socket.emit('loaded products', allProducts)
-
-      // socket.emit('success', 'product added')
     } catch (error) {
       console.log(error)
     }
   })
-  
 })
 

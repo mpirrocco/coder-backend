@@ -6,15 +6,10 @@ const viewsRouter = Router()
 
 viewsRouter.get('/', (req, res, next) => {
   try {
-
-    const tools = ['screwdriver', 'hammer', 'twitch']
-    
-    const date = new Date()
-    
+    const date = new Date()    
     const details = 'This is our catalogue area'
     
     return res.render('index', { 
-      tools: tools, 
       date, 
       details 
     })
