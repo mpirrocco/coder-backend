@@ -1,109 +1,58 @@
-import crypto from "crypto";
+import crypto from 'crypto'
 
 class ProductManager {
-  static #products = [];
-  constructor() {
+  #products
+
+  constructor(title, description, price, image, code, stock) {
+    this.#products = []
   }
 
-  create(data) {
-    try {
-      const newProduct = {
-        id: crypto.randomBytes(12).toString("hex"),
-        title: data.title,
-        photo: data.photo,
-        price: data.price,
-        stock: data.stock,
-      };
-
-      if (data.title && data.photo && data.price && data.stock) {
-        ProductManager.#products.push(newProduct);
-        return newProduct;
-      } else {
-        throw new Error(
-          "Los campos title, photo, price, stock son obligatorias"
-        );
-      }
-    } catch (error) {
-      return error.message;
-    }
+  generateID() {
+    const id = crypto.randomBytes(12).toString('hex')
+    console.log(id)
+    return id
   }
 
-  read() {
-    try {
-      if(ProductManager.#products.length === 0){
-        throw new Error("No se encontro ningun producto")
-      }else{
-        return ProductManager.#products;
-      }
-    } catch (error) {
-      return error.message;
+  create(title, description, price, image, stock) {
+    const newProd = {
+      title, description, price, image, stock
     }
     
+    newProd.id = this.generateID()
+    
+    if(
+      !newProd.title ||
+      !newProd.description || 
+      !newProd.price || 
+      !newProd.image || 
+      !newProd.stock ) {
+        console.log(`Please check that all information is included`)
+        return
+      }    
+    
+    this.#products.push(newProd)
+    return newProd
   }
-
+  
   readOne(id) {
-    try {
-      const product = ProductManager.#products.find(
-        (product) => product.id === id
-      );
-
-      if(product){
-        return product
-      }else{
-        throw new Error("No encontrado")
-      }
-    } catch (error) {
-      return error.message
-    }
-    
+    const foundProd = this.#products.find(prod => prod.id === id) 
+    foundProd ? console.log(foundProd) : console.log('Product not found')
+    return foundProd
   }
-
-  destroy(id){
-    try {
-      const product = ProductManager.#products.find(
-        (product) => product.id === id
-      );
-      if (!product) {
-        throw new Error("No se encontro producto!");
-      } else {
-        const index = ProductManager.#products.indexOf(product);
-        ProductManager.#products.splice(index, 1);
-        
-        return "Producto eliminado";
-      }
-    } catch (error) {
-      return error.message;
-    }
-  }
-
-  update(id,data){
-    try {
-     const one= this.readOne(id);
-     
-     if(!one){
-       throw new Error("No se encontro producto!")
-      }else{
-
-        const index = ProductManager.#products.indexOf(one);
-          one.title= data.title || one.title,
-          one.photo= data.photo || one.photo,
-          one.price= data.price || one.price,
-          one.stock= data.stock || one.stock,
-
-          ProductManager.#products[index] = one;
-          
-
-        return "producto actualizada"
-      }
-
-    } catch (error) {
-      return error.message;
-    }
+  
+  read() {
+    console.log(this.#products)
+    return(this.#products)
   }
 }
 
-const Manager = new ProductManager();
+const productsInMemory = new ProductManager()
+export default productsInMemory
 
-console.log(Manager.create({ photo: "https://picsum.photos/200", price: 100, stock: 10 })); 
+productsInMemory.create('Screwdriver', 'Phillips style', 'no image', '23223', 3)
+productsInMemory.create('Screwdriver', 'Flat style', 'no image', '23223', 3)
+productsInMemory.create('Wrench', '6" adjustable', 'no image', '23228', 3)
 
-console.log(Manager.read());
+productsInMemory.read()
+productsInMemory.readOne(5)
+
