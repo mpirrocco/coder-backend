@@ -1,108 +1,73 @@
-import { Router } from "express"
-import ManagerUser  from "../../data/fs/user.fs.js"
-import propsUser from "../../middlewares/propsUser.js";
+import { Router } from 'express'
+import usersManager from '../../data/fs/users.fs.js'
+import propsUsers from '../../middlewares/propsUsers.mid.js'
+
 const usersRouter = Router()
 
-usersRouter.post("/", propsUser, async (req, res, next) => {
-    try {
-      const data = req.body;
-      const response = await ManagerUser.create(data);
-      
-        return res.json({
-          statusCode: 201,
-          response,
-        });
-      
-    } catch (error) {
-        return next(error);
-    }
-  });
+usersRouter.post('/', propsUsers, async (req, res, next) => {
+  const { name, image, email } = req.body
+  try {
+    const response = await usersManager.create(name, image, email)
+    return res.json({
+      statusCode: 201,
+      message: response
+    })
 
-  usersRouter.get ('/', async (req,res, next)=>{
-    try {
-        const users = await ManagerUser.read()
-        if(users){
-            return res.json({
-                statusCode: 200,
-                response: users
-            })
-        }else{
-            return res.json({
-                statusCode: 404,
-                message: "Not found!"
-            })
-        }
-        
-    } catch (error) {
-        return next(error);
-    }
-    
+  } catch (error) {
+    return next(error)
+  }
 })
 
-usersRouter.get ('/:uid', async (req,res, next)=>{
-    try {
-        const {uid} = req.params
-        const user =await ManagerUser.readOne(uid)
-        if(user){
-            return res.json({
-                statusCode: 200,
-                response: user
-            })
-        }else{
-            return res.json({
-                statusCode: 404,
-                message: "Not found!"
-            })
-        }
-        
-    } catch (error) {
-        return next(error);
-    }
-    
+
+usersRouter.get('/', async (req, res, next) => {
+  try {
+    const allUsers = await usersManager.read()
+    console.log(allUsers)
+    return res.json({
+      statusCode: 200,
+      message: allUsers
+    })
+
+  } catch (error) {
+    return next(error)
+  }
 })
 
-usersRouter.put('/:uid', async (req,res, next)=>{
-    try {
-        const {uid} = req.params
-        const data = req.body;
-        const user = await ManagerUser.update(uid,data)
-        if(user){
-            return res.json({
-                statusCode: 200,
-                response: user
-            })
-        }else{
-            return res.json({
-                statusCode: 404,
-                message: "Not found!"
-            })
-        }
-        
-    } catch (error) {
-        return next(error);
-    }
+usersRouter.get('/:uid', async (req, res, next) => {
+  const { uid } = req.params
+
+  try {
+    const singleUser = await usersManager.readOne(uid)
+    if(singleUser === 'User not found') {
+      return res.json({
+        statusCode: 404,
+        message: singleUser
+      })
+    } else {
+      return res.json({
+        statusCode: 200,
+        message: singleUser
+      })
+    }    
+  } catch (error) {
+    return next(error)
+  }
 })
 
-usersRouter.delete('/:uid', async (req,res, next)=>{
-    try {
-        const {uid} = req.params
-        const user = await ManagerUser.destroy(uid)
-        if(user){
-            return res.json({
-                statusCode: 200,
-                response: user
-            })
-        }else{
-            return res.json({
-                statusCode: 404,
-                message: "Not found!"
-            })
-        }
-        
-    } catch (error) {
-        return next(error);
-    }
+usersRouter.put('/:uid', async (req, res, next) => {
+  const { uid } = req.params
+  const { name, image, email } = req.body
+  
+  try {
+    console.log(uid + ' ' + name)
+    const updatedUser = await usersManager.updateUser(uid, name, image, email)   
+    return res.json({
+      statusCode: 200,
+      message: updatedUser
+    })
+  } catch (error) {
+    return next(error)
+  }
 })
-
 
 export default usersRouter

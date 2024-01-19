@@ -1,0 +1,53 @@
+<div class="container">
+  <h1>New product</h1>
+  
+  <form class="w-50">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title *</label>
+      <input required type="text" class="form-control" id="title" aria-describedby="title">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description *</label>
+      <input required type="text" class="form-control" id="description" aria-describedby="description">
+    </div>
+    <div class="mb-3">
+      <label for="img" class="form-label">Image *</label>
+      <input required type="text" class="form-control" id="img" aria-describedby="img">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price *</label>
+      <input required type="number" class="form-control" id="price" aria-describedby="price">
+    </div>
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock *</label>
+      <input required type="number" class="form-control" id="stock" aria-describedby="stock">
+      
+    </div>   
+    <p> (*)All fields required </p>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <div id="products-list">
+
+  </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/productsListSocket.js"></script>
+
+{{!-- 
+Title
+200w cordless weld
+
+Description
+Plastic Weld Kit with 1200Pcs 6 Tpyes Hot Staples,Plastic Welder Tool 5000mAh Rechargeable Battery, Plastic Welder Repair Kit
+
+Image
+https://m.media-amazon.com/images/I/81ohtqEj4LL._AC_SL1500_.jpg
+
+Price
+68
+
+Stock
+3
+ --}}

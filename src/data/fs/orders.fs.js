@@ -1,113 +1,124 @@
-import fs from "fs";
-import crypto from "crypto";
+import fs from 'fs'
+import crypto from 'crypto'
 
 class OrdersManager {
-  static #orders = [];
-
-  constructor() {
-    this.path = "./src/data/fs/files/orders.json";
-    this.conf = "utf-8";
-    this.init();
+  constructor(path) {
+    this.path = path
   }
 
-  init() {
-    const exist = fs.existsSync(this.path);
-    if (exist) {
-      OrdersManager.#orders = JSON.parse(fs.readFileSync(this.path, this.conf));
-    } else {
-      fs.writeFileSync(this.path, JSON.stringify([], null, 2));
+  generateID() {
+    const id = crypto.randomBytes(12).toString('hex')
+    return id
+  }
+
+  async read() {    
+    try {
+      if(fs.existsSync(this.path)) {
+        let products = await fs.promises.readFile(this.path)
+        return products = JSON.parse(products)
+      } else {         
+        return [] 
+      }   
+    } catch(err) {
+      return `There was an error getting the products catalogue, error: ${err}`
     }
   }
 
-  create(data) {
+  async create(pid, uid, qty, state) {
     try {
-      
       const newOrder = {
-        id: crypto.randomBytes(12).toString("hex"),
-        pid: data.pid,
-        uid: data.uid,
-        quantity: data.quantity,
-        state: data.state,
-      };
+        uid, pid, qty, state
+      }
 
-      OrdersManager.#orders.push(newOrder);
+      let ordersList = await this.read()
+      console.log(ordersList)
+      newOrder.oid = this.generateID()
 
-      fs.writeFileSync(
-        this.path,
-        JSON.stringify(OrdersManager.#orders, null, 2)
-      );
-      return "orden creado";
+      ordersList.push(newOrder)
+      await fs.promises.writeFile(this.path, JSON.stringify(ordersList, null, '\t'))
+
+      return newOrder
+
     } catch (error) {
-      return error.message;
+      return `There was an error (${error} creating your order)`
     }
   }
 
-  read() {
+  async readByUser(uid) {
     try {
-      if (OrdersManager.#orders.length === 0) {
-        throw new Error("No se encontraron ordenes de compra!");
+      const ordersList = await this.read()
+      const userOrders = ordersList.filter((order) => order.uid === uid)
+
+      if(userOrders.length > 0) {
+        return userOrders
       } else {
-        return OrdersManager.#orders;
+        return `There are no orders placed for that user`
       }
+
     } catch (error) {
-      return error.message;
+      return `There was an error retrieving the list`
+    }
+  } 
+
+  async readOne(oid) {
+    try {
+      const orders = await this.read()
+      const foundOrder = orders.find(order => order.oid === oid) 
+      if(!foundOrder) {
+       return 'Order not found with specified ID'
+      }
+      return foundOrder 
+    } catch(err) {
+      return `There was a problem getting your order, error: ${err}`
     }
   }
 
-  readOne(uid) {
+  async update(oid, qty, state) {
     try {
-      const order = OrdersManager.#orders.filter((orders) => orders.uid === uid);
-      if (!order) {
-        throw new Error("No se encontro orden del usuario!");
-      } else {
-        return order;
-      }
-    } catch (error) {
-      return error.message;
-    }
-  }
-
-  destroy(oid) {
-    try {
-      const order = OrdersManager.#orders.find((order) => order.id === oid);
-      if (!order) {
-        throw new Error("No se encontro orden!");
-      } else {
-        const index = OrdersManager.#orders.indexOf(order);
-        OrdersManager.#orders.splice(index, 1);
-        fs.writeFileSync(
-          this.path,
-          JSON.stringify(OrdersManager.#orders, null, 2)
-        );
-        return "Orden eliminado";
-      }
-    } catch (error) {
-      return error.message;
-    }
-  }
-
-  update(oid,quantity,state) {
-    try {
-      const one = OrdersManager.#orders.find((order) => order.id === oid)
-      if(!one){
-        throw new Error("No se encontro orden!")
-      }else{
-
-        one.quantity = quantity;
-        one.state = state
-        fs.writeFileSync(
-          this.path,
-          JSON.stringify(OrdersManager.#orders, null, 2)
-        );
-        return "Orden actualizada"
-      }
+      const orders = await this.read()
+      const foundOrder = await this.readOne(oid)
       
+      if(foundOrder !== 'Order not found') {
+        foundOrder.qty = qty
+        foundOrder.state = state
+        
+        const index = orders.findIndex((order) => order.oid === foundOrder.oid) 
 
+        orders.splice(index, 1, foundOrder)
+        await fs.promises.writeFile(this.path, JSON.stringify(orders, null, '\t')) 
+
+        return `The order ${oid} was updated to ${qty} items and state: ${state}`
+      } else {
+        return `Order not found with the provided ID`
+      }
+
+    } catch(err) {
+      return `There was an error (${err}) getting the updated order`
+    }
+  } 
+
+  async destroy(oid) {
+    try {
+      const orders = await this.read()
+      const foundOrder = await this.readOne(oid)
+      
+      if(foundOrder !== 'Order not found') {
+        
+        const index = orders.findIndex((order) => order.oid === foundOrder.oid) 
+
+        orders.splice(index, 1)
+        await fs.promises.writeFile(this.path, JSON.stringify(orders, null, '\t')) 
+
+        return `The order ${oid} was deleted`
+      } else {
+        return `Order not found with the provided ID`
+      }
     } catch (error) {
-      return error.message;
+      return `There was an error (${err}) getting the order to delete`
     }
   }
+
 }
 
-const ManagerOrders = new OrdersManager();
-export default ManagerOrders;
+const ordersManager = new OrdersManager('./src/data/fs/files/orders.json')
+export default ordersManager

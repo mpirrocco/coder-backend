@@ -1,0 +1,24 @@
+<main>
+  <section class="container">
+    <h1>Main page</h1>
+    <p>This is our main page</p>
+    <p>
+      {{date}}
+    </p>
+
+    {{#if details}}
+      <h2>
+        {{details}}
+      </h2>
+    {{else}}
+      <p>
+        <i>Missing content goes here</i>
+      </p>
+    {{/if}}
+
+    {{#each tools}}
+      <h2>{{this}}</h2>
+    {{/each}}
+  </section>
+
+</main>
