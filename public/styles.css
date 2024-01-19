@@ -19,7 +19,7 @@ img {
 
 .prod {
   display: flex;
-  /* max-width: 300px; */
+  max-width: 300px;
   width: 40%;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -32,7 +32,6 @@ img {
 }
 
 .img-container { 
-  
   padding: 2rem 1rem 0 2rem;
 }
 
@@ -43,4 +42,15 @@ p.price {
   color: white;
   background: #999;
   padding: 6px;
+}
+
+#products-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer {
+  border-top: 1px solid #999;
+  text-align: center;
+  padding-top: 22px;
 }
