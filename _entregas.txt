@@ -13,7 +13,8 @@ Cada producto tiene las propiedades:
   photo (ruta de imagen)
   price (precio)
   stock (unidades disponibles)
-  Cada usuario tiene las propiedades:
+
+Cada usuario tiene las propiedades:
   id (código identificador)
   name (titulo)
   photo (ruta de imagen)
