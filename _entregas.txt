@@ -1,0 +1,86 @@
+MANEJO DE ARCHIVOS sprint2
+
+Consigna
+Programar una clase “ProductManager” que gestione un conjunto de productos con fs.
+Programar una clase “UserManager” que gestione un conjunto de usuarios con fs.
+
+Aspectos a incluir
+Debe crearse una carpeta data donde se guardaran los archivos json de productos/usuarios
+
+Cada producto tiene las propiedades:
+  id (código identificador)
+  title (titulo)
+  photo (ruta de imagen)
+  price (precio)
+  stock (unidades disponibles)
+  Cada usuario tiene las propiedades:
+  id (código identificador)
+  name (titulo)
+  photo (ruta de imagen)
+  email (precio)
+
+Cada clase de contar con los métodos:
+- create(data) el cual agregará un producto/usuario al arreglo de productos/usuarios del json.
+  Todos los campos son obligatorios menos id que debe agregarse automáticamente  y auto- incrementable.
+- read() el cual debe devolver el arreglo con todos los productos/usuarios del json correspondiente
+- readOne(id) el cual debe devolver el objeto producto/usuario buscado del json correspondiente
+
+Formato del entregable
+- Pull Request (PR) de rama sprint2 hacia main/master según corresponda
+- Probar los métodos y realizar algunas capturas de pantalla para incluir en la PR.
+- Incluir readme.md explicando lo que se entregó
+- La entrega es individual, en caso de trabajar en parejas, informar al tutor con quién trabajaron (ambos deben avisar).
+
+============================================================
+
+SERVIDOR EXPRESS sprint3
+
+(estructurar carpetas)
+
+Cada manager de memory y de fs debe contar con los métodos:
+- create(data) el cual agregará un producto/usuario (modificar para generar el id con crypto=> 12 y hex).
+- read() el cual debe devolver el arreglo con todos los productos/usuarios.
+- readOne(id) el cual debe devolver el objeto producto/usuario.
+
+Agregar a cada manager de memory y de fs el método:
+- destroy(id) el cual eliminará el objeto producto/usuario de la lista.
+
+Endpoints de productos:
+- GET /api/products debe implementar el método read() de fs:
+    Si el array tiene productos enviar al cliente un objeto con las propiedades:
+      success: true
+      response: (el array)
+    Si el array está vacío manejar el error 404 y enviar al cliente un objeto con las propiedades:
+      success: false
+      message: “not found!”
+- GET /api/products/:pid debe implementar el método readOne(id) de fs:
+    Si el producto existe enviar al cliente un objeto con las propiedades:
+      success: true
+      response: (el objeto)
+    Si el objeto no existe manejar el error 404 y devolver un objeto con las propiedades:
+      success: false
+      message: “not found!”
+
+Endpoints de usuarios:
+- GET /api/users debe implementar el método read() de fs:
+    Si el array tiene usuarios enviar al cliente un objeto con las propiedades:
+      success: true
+      response: (el array)
+    Si el array está vacío manejar el error 404 y enviar al cliente un objeto con las propiedades:
+      success: false
+      message: “not found!”
+- GET /api/users/:uid debe implementar el método readOne(id) de fs:
+    Si el usuario existe enviar al cliente un objeto con las propiedades:
+      success: true
+      response: (el objeto)
+    Si el objeto no existe manejar el error 404 y devolver un objeto con las propiedades:
+      success: false
+      message: “not found!”
+      
+Formato del entregable
+- Pull Request (PR) de rama sprint3 hacia main/master según corresponda
+- Probar los endpoints y realizar algunas capturas de pantalla para incluir en la PR.
+- Incluir readme.md explicando lo que se entregó
+- La entrega es individual, en caso de trabajar en parejas, informar al tutor con quién trabajaron (ambos deben avisar).
+
+

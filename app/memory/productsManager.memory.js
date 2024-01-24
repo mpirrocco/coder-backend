@@ -13,7 +13,6 @@ class ProductsManager {
       price,
       stock
     }
-
     newProd.id = this.#products.length === 0 ? 1 : this.#products[this.#products.length - 1].id + 1
 
     this.#products.push(newProd)
