@@ -24,10 +24,10 @@ class UsersManager {
     }
   }
 
-  async create(name, image, email) {
+  async create(name, image, email, id = this.generateID()) {
     try {
       const newUser = {
-        name, image, email, id: this.generateID()
+        name, image, email, id
       }  
       
       let users = await this.read()

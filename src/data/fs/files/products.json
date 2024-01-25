@@ -1,0 +1,18 @@
+[
+	{
+		"title": "Destornillador",
+		"description": "Phillips",
+		"price": "250",
+		"image": "no image",
+		"stock": "6",
+		"id": "c58eaf1bf37a0394717e31b3"
+	},
+	{
+		"title": "Destornillador",
+		"description": "Estrella",
+		"price": "no image",
+		"image": "150",
+		"stock": "6",
+		"id": "9844b8f2c980f3052e384f22"
+	}
+]
