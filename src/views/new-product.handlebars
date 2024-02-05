@@ -1,0 +1,38 @@
+<section class="container">
+  <h3>New product</h3>
+  
+  <form class="w-50">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title *</label>
+      <input type="text" class="form-control" id="title" name="title" required aria-describedby="title">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description *</label>
+      <input type="text" class="form-control" id="description" name="description" required aria-describedby="description">
+    </div>
+    <div class="mb-3">
+      <label for="img" class="form-label">Image *</label>
+      <input type="text" class="form-control" id="img" name="img" required aria-describedby="img">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price *</label>
+      <input type="number" class="form-control" id="price" name="price" required aria-describedby="price">
+    </div>
+    <div class="mb-3">
+      <label for="stock" class="form-label">Stock *</label>
+      <input type="number" class="form-control" id="stock" name="stock" required aria-describedby="stock">
+    </div>   
+    <p> (*)All fields required </p>
+    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+  </form>
+ 
+  <div id="products-list">
+    <h3>Products Catalogue</h3>
+  </div>
+</section>
+
+{{!-- <script src="/socket.io/socket.io.js"></script>
+<script src="/productsListSocket.js"></script> --}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/real.js"></script>

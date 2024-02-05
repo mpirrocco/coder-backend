@@ -13,6 +13,8 @@ class ProductsManager {
 
   async read() {
     try {
+      console.log(this.path + ' class')
+      
       if(fs.existsSync(this.path)) {
         console.log(this.path)
         let products = await fs.promises.readFile(this.path)
@@ -25,10 +27,15 @@ class ProductsManager {
     }
   }
 
-  async create(title, description, price, image, stock, id = this.generateID()) {
+  async create(data) {
     try {
       const newProd = {
-        title, description, price, image, stock, id
+        title: data.title, 
+        description: data.description, 
+        image: data.image, 
+        price: data.price, 
+        stock: data.stock, 
+        id: this.generateID()
       }  
       
       let products = await this.read()
@@ -79,4 +86,8 @@ class ProductsManager {
   }
 }
 
+// const productsManager = new ProductsManager('./src/data/fs/files/products.json')
+// export default productsManager
 export default ProductsManager
+
+

@@ -1,0 +1,26 @@
+section.container {
+  padding-top: 1.6rem;;
+}
+
+img {
+  max-width: 100%;
+  aspect-ratio: initial;
+}
+
+#products-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.card { 
+  max-width: 240px;
+  margin: .3rem;
+}
+
+.card img {
+  max-height: 100px;
+  width: auto;
+  height: auto;
+  margin: .75rem auto;
+}

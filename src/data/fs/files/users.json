@@ -42,11 +42,15 @@
 		"id": "49360a5f99ea59ef93882cfa"
 	},
 	{
-		"name": {
-			"name": "Valentina",
-			"image": "no image",
-			"email": "valentina@email.com"
-		},
-		"id": "8eccd1be6e417fb37137265e"
+		"name": "Valentina",
+		"image": "no image",
+		"email": "valentina@email.com",
+		"id": "d6fdce6b72bb38e4db871d06"
+	},
+	{
+		"name": "Alvaro Juani",
+		"image": "no image",
+		"email": "alvaro@email.com",
+		"id": "37beec5771cfa1f26a3b7df0"
 	}
 ]
