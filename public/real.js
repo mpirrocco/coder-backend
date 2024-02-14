@@ -7,7 +7,7 @@ socket.on('productsList', (data) => {
   const prodsList = data.map((el) => `
     <div class="card" style="width: 18rem;">
       <img src="${el.image}" class="card-img-top" alt="No image">
-      <div class="card-body">
+      <div class="card-body"> 
         <h5 class="card-title">${el.title}</h5>
         <p class="card-text">${el.description}</p>
         <p class="card-text">${el.price}</p>
