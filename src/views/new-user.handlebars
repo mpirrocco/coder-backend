@@ -3,17 +3,23 @@
   
   <form class="w-50">
     <div class="mb-3">
-      <label for="name" class="form-label">Name *</label>
-      <input type="text" class="form-control" id="name" aria-describedby="name">
+      <label for="first-name" class="form-label">First Name *</label>
+      <input type="text" class="form-control" id="first-name" aria-describedby="first-name">
     </div>
+    <div class="mb-3">
+      <label for="last-name" class="form-label">Last Name *</label>
+      <input type="text" class="form-control" id="last-name" aria-describedby="last-name">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">E-Mail *</label>
+      <input type="email" class="form-control" id="email" aria-describedby="email">
+    </div>
+    
     <div class="mb-3">
       <label for="image" class="form-label">Image *</label>
       <input type="text" class="form-control" id="image" aria-describedby="image">
     </div>
-    <div class="mb-3">
-      <label for="email" class="form-label">Image *</label>
-      <input type="email" class="form-control" id="email" aria-describedby="email">
-    </div>
+    
     <p> (*)All fields required </p>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
@@ -23,5 +29,5 @@
   </div>
 </section>
 
-{{!-- <script src="/socket.io/socket.io.js"></script>
-<script src="/productsListSocket.js"></script> --}}
+<script src="/socket.io/socket.io.js"></script>
+<script src="/register.js"></script>

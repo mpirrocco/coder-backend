@@ -1,14 +1,16 @@
 import { Router } from 'express'
 import __dirname from '../../../utils.js'
-import UsersManager from '../../data/fs/usersManager.fs.js'
+// import UsersManager from '../../data/fs/usersManager.fs.js'
+// const usersManager = new UsersManager(`${__dirname}/src/data/fs/files/users.json`)
 
-const usersManager = new UsersManager(`${__dirname}/src/data/fs/files/users.json`)
+import { usersManager } from '../../data/mongo/manager.mongo.js'
 
 const usersRouter = Router()
 
 usersRouter.get('/', async (req, res) => {
   try {
     const allUsers = await usersManager.read()
+    // va a necesitar parámetros para paginar, ordenar y filtrar
     if(allUsers.length > 0) {
       res.send({
         statusCode: 200,
@@ -64,6 +66,16 @@ usersRouter.post('/', async (req, res) => {
   }
 })
 
+/*
+usersRouter.put('/:uid', async (req, res) => {
+
+})
+
+usersRouter.delete('/:uid', async (req, res) => {
+
+})
+
+*/
 
 
 export default usersRouter

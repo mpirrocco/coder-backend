@@ -1,29 +1,38 @@
 import 'dotenv/config.js'
+ 
+
 import express, { urlencoded } from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { engine } from 'express-handlebars'
 import morgan from 'morgan'
+import socketUtils from "./src/utils/socket.utils.js";
+
 import __dirname from './utils.js'
 
 import router from './src/routers/index.router.js'
 import ProductsManager from './src/data/fs/productsManager.fs.js'
 // import errorHandler from './src/middlewares/errorHandler.js'
 // import pathHandler from './src/middlewares/pathHandler.js'
+import dbConnection from './src/utils/db.js'
+
 const productsManager = new ProductsManager(`${__dirname}/src/data/fs/files/products.json`)
 
 
 // SERVER CONFIGURATION AND INITIALIZATION
 const server = express()
 const PORT = process.env.PORT || 8080
-// server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`))
 const httpServer = createServer(server)
-httpServer.listen(PORT, () => console.log(`Server is running on port: ${PORT}`))
+httpServer.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`)
+  // dbConnection()
+})
+
 const io = new Server(httpServer)
 
 io.on('connection', async (socket) => {
   // console.log(socket.id)
-  io.emit('welcome', 'Welcome to the store baby')
+  io.emit('welcome', 'Welcome to the store baby') 
 
   io.emit('productsList', await productsManager.read())  
 
